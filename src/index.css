@@ -82,3 +82,9 @@ input:-webkit-autofill:focus {
 input[data-autocompleted] {
   background-color: transparent !important;
 }
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}

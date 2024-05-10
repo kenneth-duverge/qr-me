@@ -3,6 +3,7 @@ import { Label } from '@/components/ui/label';
 
 export const QrForm = () => {
   return (
+    // Should the `form` element be wrapped here?
     <div className="flex flex-col gap-4 text-white">
       <div className="flex gap-2 w-full">
         <Label className="flex flex-col gap-2 w-full">
