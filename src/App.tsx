@@ -1,6 +1,6 @@
 import './App.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Generate } from './routes/generate';
 import { Root } from './routes/root';
 import { Index } from './routes';
@@ -43,7 +43,12 @@ const router = createBrowserRouter([
 //   .addPhoneNumber(9175871799, 'PREF;WORK')
 //   .addSocial('https://twitter.com/kenduve', 'Instagram', 'kenduve')
 //   .addURL('https://kennethduverge.com');
+const queryClient = new QueryClient();
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  );
 }

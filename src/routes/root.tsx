@@ -8,7 +8,7 @@ export function Root() {
   const location = useLocation();
   return (
     <React.StrictMode>
-      <div className="h-20 w-full py-4 px-8 flex items-center justify-between text-white ">
+      <div className="h-20 w-full p-4 lg:px-8 flex items-center justify-between text-white ">
         <Link to="/" className="flex items-center gap-3">
           <QrCode className="h-8 w-8" />
         </Link>
