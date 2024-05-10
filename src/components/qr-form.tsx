@@ -19,7 +19,7 @@ export const QrForm = ({
 }) => {
   return (
     // Should the `form` element be wrapped here?
-    <form onSubmit={onSubmit} className="flex flex-col gap-6 text-white w-full">
+    <form id="qr-form" onSubmit={onSubmit} className="flex flex-col gap-6 text-white w-full">
       <div className="flex gap-2 w-full">
         <Label className="flex flex-col gap-2 w-full">
           First name

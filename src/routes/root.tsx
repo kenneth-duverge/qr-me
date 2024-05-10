@@ -15,7 +15,7 @@ export function Root() {
         {location.pathname === '/' && (
           <Link to="/generate">
             <Button className="bg-white text-zinc-900 hover:bg-zinc-200 hidden lg:flex">
-              Generate QR
+              New
             </Button>
           </Link>
         )}

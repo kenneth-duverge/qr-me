@@ -41,14 +41,14 @@ export const QrDrawer = ({
         <Drawer.Overlay className="fixed inset-0 bg-black/40" />
         <Drawer.Content className="bg-zinc-900 flex flex-col px-4 rounded-t-[10px] font-mono h-[90%] fixed bottom-0 left-0 right-0">
           <Drawer.Handle />
-          <div className="container h-full !px-4 lg:!px-8 mx-auto pt-10 lg:max-w-[800px] flex flex-col gap-4">
+          <div className="container h-full !px-4 lg:!px-8 mx-auto pt-10 lg:max-w-[800px] flex flex-col gap-8">
             <h1 className="text-3xl text-white">{title}</h1>
-            <div className="mt-8 flex h-max">
+            <div className="flex h-max overflow-auto">
               <QrForm initialValues={initialValues} onSubmit={onSubmit} />
             </div>
             <div className="flex flex-col-reverse w-full gap-4 flex-1 items-center pb-10">
               <Drawer.Close asChild>
-                <Button variant="secondary" className="w-full">
+                <Button form="qr-form" type="submit" variant="secondary" className="w-full">
                   Save
                 </Button>
               </Drawer.Close>

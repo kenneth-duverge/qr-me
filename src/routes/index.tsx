@@ -4,10 +4,20 @@ import { QrProfile } from '@/components/qr-profile';
 import { Button } from '@/components/ui/button';
 
 import { createProfile, useGetProfiles } from '@/lib/api';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { FormEvent } from 'react';
 
 const CreateProfileDrawer = ({ children }: React.PropsWithChildren) => {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: createProfile,
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: ['profiles'] });
+    },
+  });
   const saveContactProfile = (event: FormEvent) => {
+    event.preventDefault();
+
     const fd = new FormData(event.target as HTMLFormElement);
     const formData = fd as FormData;
     // Make API request to save contact profile
@@ -18,7 +28,7 @@ const CreateProfileDrawer = ({ children }: React.PropsWithChildren) => {
     const email = formData.get('email') as string;
     const phone_number = formData.get('phone-number') as string;
 
-    createProfile({
+    mutation.mutate({
       first_name,
       last_name,
       website,

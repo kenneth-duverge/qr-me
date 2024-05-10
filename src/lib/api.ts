@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-const profiles = [
+let profiles = [
   {
     id: 1,
     first_name: 'John',
@@ -108,20 +108,23 @@ export const getProfile = async (id: number | string) => profiles.find((p) => p.
 export const createProfile = async (
   profile: Omit<(typeof profiles)[0], 'id' | 'created_date' | 'updated_date' | 'profileName'>
 ) =>
-  profiles.push({
-    id: profiles.length,
-    created_date: Date.now().toLocaleString(),
-    updated_date: Date.now().toLocaleString(),
-    profileName: 'Random',
-    ...profile,
-  }) && profiles;
+  (profiles = [
+    ...profiles,
+    {
+      id: profiles.length + 1,
+      created_date: Date.now().toLocaleString(),
+      updated_date: Date.now().toLocaleString(),
+      profileName: 'Random',
+      ...profile,
+    },
+  ]);
 
 export const deleteProfile = async (id: number | string) => profiles.filter((p) => p.id !== id);
 
 export const updateProfile = async (
   profile: Omit<(typeof profiles)[0], 'created_date' | 'updated_date' | 'profileName'>
 ) => {
-  return profiles.map((p) => {
+  const t = profiles.map((p) => {
     if (p.id === profile.id) {
       return {
         ...p,
@@ -132,6 +135,8 @@ export const updateProfile = async (
 
     return p;
   });
+
+  profiles = t;
 };
 
 export const useGetProfiles = () => {
