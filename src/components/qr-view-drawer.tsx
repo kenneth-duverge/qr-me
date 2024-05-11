@@ -23,8 +23,8 @@ export const QrViewDrawer = ({
       <Drawer.Trigger asChild>{children}</Drawer.Trigger>
       <Drawer.Portal>
         <Drawer.Overlay className="fixed inset-0 bg-black/40" />
-        <Drawer.Content className="bg-zinc-900 font-mono flex flex-col rounded-t-[10px] h-[96%] mt-24 fixed bottom-0 left-0 right-0">
-          <Drawer.Handle />
+        <Drawer.Content className="bg-zinc-900 font-mono flex flex-col rounded-t-[10px] h-[96%] pt-10 fixed bottom-0 left-0 right-0">
+          <Drawer.Handle className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-zinc-300 mb-8" />
           <div className="container pt-20 lg:max-w-[800px] h-full justify-around flex flex-col gap-8">
             <div className="flex w-full items-center justify-center h-max">
               <QRCode value={qrCodeString.toString()} className="bg-white p-4" />

@@ -51,17 +51,14 @@ export const Index = () => {
 
   if (isLoading) return null;
 
-  if (!data) return <EmptyState />;
+  if (!data || data.length === 0) return <EmptyState />;
 
   return (
     <div className="flex-1 font-mono w-full flex flex-col gap-4 py-8 text-white container !px-4 lg:!px-8">
       <div className="justify-start flex flex-col pt-8 md:pt-0">
         <div className="flex justify-between items-center sticky top-10">
           <div className="flex flex-col gap-4">
-            <h1 className="text-2xl lg:text-3xl text-white">Profiles</h1>
-            {/* <p className="text-lg text-white/70">
-              Showing {data.length} results {data.length > 6 ? 'scroll down to view more' : ''}
-            </p> */}
+            <h1 className="text-xl lg:text-3xl text-white">Profiles</h1>
           </div>
           <CreateProfileDrawer>
             <Button className="flex lg:hidden" variant="secondary">
