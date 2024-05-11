@@ -10,7 +10,7 @@ export const EmptyState = () => (
         You have no QR contact profiles.
       </h1>
       <div>
-        <QrDrawer title="Create Profile">
+        <QrDrawer onSubmit={() => null} title="Create Profile">
           <Button className="flex md:hidden" variant="secondary">
             Generate one
           </Button>
