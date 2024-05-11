@@ -58,7 +58,7 @@ export const Index = () => {
       <div className="justify-start flex flex-col pt-8 md:pt-0">
         <div className="flex justify-between items-center sticky top-10">
           <div className="flex flex-col gap-4">
-            <h1 className="text-xl lg:text-3xl text-white">Profiles</h1>
+            <h1 className="text-2xl lg:text-3xl text-white">Profiles</h1>
           </div>
           <CreateProfileDrawer>
             <Button className="flex lg:hidden" variant="secondary">

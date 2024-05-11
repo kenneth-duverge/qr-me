@@ -1,5 +1,6 @@
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Separator } from './ui/separator';
 
 const defaultValues = {
   firstName: '',
@@ -8,6 +9,7 @@ const defaultValues = {
   email: '',
   website: '',
   phoneNumber: '',
+  profileName: '',
 };
 
 export const QrForm = ({
@@ -20,6 +22,20 @@ export const QrForm = ({
   return (
     // Should the `form` element be wrapped here?
     <form id="qr-form" onSubmit={onSubmit} className="flex flex-col gap-6 text-white w-full">
+      <Label className="flex flex-col gap-4 w-full mb-0">
+        <span className="flex flex-col gap-1">
+          <span className="text-base">Profile name</span>
+          <span className="text-white/70">A unique name for your profile</span>
+        </span>
+        <Input
+          defaultValue={initialValues.profileName}
+          required
+          type="text"
+          name="profile-name"
+          placeholder="Professional"
+        />
+      </Label>
+      <Separator className='my-2 bg-white/50' />
       <div className="flex flex-col md:flex-row gap-6 w-full">
         <Label className="flex flex-col gap-2 w-full">
           First name
@@ -63,8 +79,9 @@ export const QrForm = ({
       <Label className="flex flex-col gap-2">
         Phone Number
         <Input
-          defaultValue={initialValues.phoneNumber}
           type="tel"
+          required
+          defaultValue={initialValues.phoneNumber}
           name="phone-number"
           placeholder="123456789"
         />

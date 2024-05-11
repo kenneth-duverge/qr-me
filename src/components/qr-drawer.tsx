@@ -11,6 +11,7 @@ const defaultValues = {
   email: '',
   website: '',
   phoneNumber: '',
+  profileName: '',
 };
 
 export const QrDrawer = ({
@@ -32,6 +33,7 @@ export const QrDrawer = ({
         email: data.email,
         website: data.website,
         phoneNumber: data.phone_number,
+        profileName: data.profileName,
       }
     : defaultValues;
   return (
