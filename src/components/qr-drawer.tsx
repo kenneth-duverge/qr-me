@@ -3,11 +3,13 @@ import { Drawer } from 'vaul';
 import { QrForm } from './qr-form';
 import { Button } from './ui/button';
 import { useGetProfile } from '@/lib/api';
+import { useUser } from '@clerk/clerk-react';
+import { useRef } from 'react';
 
 const defaultValues = {
   firstName: '',
   lastName: '',
-  social: '',
+  social: [{ handle: '' }],
   email: '',
   website: '',
   phoneNumber: '',
@@ -24,18 +26,32 @@ export const QrDrawer = ({
   onSubmit: React.FormEventHandler<HTMLFormElement>;
   profileId?: string | number;
 }>) => {
-  const { data } = useGetProfile(profileId);
+  const { user } = useUser();
+  const data = useGetProfile(profileId);
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+
   const initialValues = data
     ? {
-        firstName: data.first_name,
-        lastName: data.last_name,
-        social: data.social,
-        email: data.email,
-        website: data.website,
-        phoneNumber: data.phone_number,
-        profileName: data.profileName,
+        firstName: data.firstName ?? '',
+        lastName: data.lastName ?? '',
+        social: data.social ?? [{ handle: '' }],
+        email: data.email ?? '',
+        website: data.website ?? '',
+        phoneNumber: data.phoneNumber,
+        profileName: data.name,
       }
-    : defaultValues;
+    : {
+        ...defaultValues,
+        firstName: user?.firstName ?? '',
+        lastName: user?.lastName ?? '',
+        email: user?.emailAddresses?.[0]?.emailAddress ?? '',
+        phoneNumber: user?.phoneNumbers?.[0]?.phoneNumber ?? '',
+      };
+
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
+    onSubmit(event);
+    closeButtonRef.current?.click();
+  };
   return (
     <Drawer.Root>
       <Drawer.Trigger asChild>{children}</Drawer.Trigger>
@@ -47,13 +63,14 @@ export const QrDrawer = ({
             <Drawer.Title className="text-2xl">{title}</Drawer.Title>
 
             <div className="flex flex-col gap-4 mt-2 h-max">
-              <QrForm initialValues={initialValues} onSubmit={onSubmit} />
+              <QrForm initialValues={initialValues} onSubmit={handleSubmit} />
               <div className="flex flex-col justify-between w-full mt-6 gap-4 h-full flex-1">
-                <Drawer.Close asChild>
-                  <Button form="qr-form" type="submit" variant="secondary" className="w-full">
-                    Save
-                  </Button>
-                </Drawer.Close>
+                <Drawer.Close className="hidden" ref={closeButtonRef} />
+                {/* <Drawer.Close asChild> */}
+                <Button form="qr-form" type="submit" variant="secondary" className="w-full">
+                  Save
+                </Button>
+                {/* </Drawer.Close> */}
               </div>
             </div>
           </div>

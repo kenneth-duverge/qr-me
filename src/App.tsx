@@ -1,9 +1,27 @@
-import './App.css';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { Outlet, RouterProvider, createBrowserRouter, useNavigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Generate } from './routes/generate';
+import React from 'react';
+import { useAuth } from '@clerk/clerk-react';
+
+import { Create } from './routes/create';
 import { Root } from './routes/root';
-import { Index } from './routes';
+import { Profiles } from './routes/profiles';
+import { Index } from './routes/index';
+
+const ProtectedRoute = () => {
+  const navigate = useNavigate();
+  const { isLoaded, isSignedIn } = useAuth();
+
+  React.useEffect(() => {
+    if (isLoaded && !isSignedIn) {
+      navigate('/');
+    }
+  }, [isLoaded, isSignedIn, navigate]);
+
+  if (!isSignedIn) return null;
+
+  return <Outlet />;
+};
 
 const router = createBrowserRouter([
   {
@@ -16,33 +34,20 @@ const router = createBrowserRouter([
         element: <Index />,
       },
       {
-        path: 'generate',
-        element: <Generate />,
+        path: 'profiles',
+        element: <ProtectedRoute />,
+        children: [{ path: '/profiles', element: <Profiles /> }],
+      },
+      {
+        path: 'create',
+        element: <ProtectedRoute />,
+        // Rename Generate to create
+        children: [{ path: '/create', element: <Create /> }],
       },
     ],
   },
 ]);
 
-// const myVCard = new VCard();
-
-// Some variables
-// const lastname = 'Duverge';
-// const firstname = 'Kenneth';
-// const additional = '';
-// const prefix = '';
-// const suffix = '';
-
-// myVCard
-//   // Add personal data
-//   .addName(lastname, firstname, additional, prefix, suffix)
-//   // Add work data
-//   .addCompany('Vimeo')
-//   .addJobtitle('Web Developer')
-//   .addRole('Software Engineer')
-//   .addEmail('kenneth.duverge@icloud.com')
-//   .addPhoneNumber(9175871799, 'PREF;WORK')
-//   .addSocial('https://twitter.com/kenduve', 'Instagram', 'kenduve')
-//   .addURL('https://kennethduverge.com');
 const queryClient = new QueryClient();
 
 export default function App() {

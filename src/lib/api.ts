@@ -1,4 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from 'convex/react';
+
+import { api } from '../../convex/_generated/api';
 
 let profiles = [
   {
@@ -99,10 +101,6 @@ let profiles = [
   // },
 ];
 
-export const getProfiles = async () => {
-  return profiles;
-};
-
 export const getProfile = async (id: number | string) => profiles.find((p) => p.id === id);
 
 export const createProfile = async (
@@ -140,14 +138,10 @@ export const updateProfile = async (
 };
 
 export const useGetProfiles = () => {
-  return useQuery({ queryKey: ['profiles'], queryFn: getProfiles });
+  return useQuery(api.profiles.getProfiles);
 };
 
 export const useGetProfile = (id?: string | number) => {
-  const { data, ...rest } = useGetProfiles();
-
-  return {
-    data: data?.find((p) => p.id === id) ?? null,
-    ...rest,
-  };
+  const data = useGetProfiles();
+  return data?.find((p) => p._id === id);
 };

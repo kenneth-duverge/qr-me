@@ -21,11 +21,9 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "convex/_generated"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

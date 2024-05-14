@@ -5,7 +5,7 @@ import { Separator } from './ui/separator';
 const defaultValues = {
   firstName: '',
   lastName: '',
-  social: '',
+  social: [{ handle: '' }],
   email: '',
   website: '',
   phoneNumber: '',
@@ -35,7 +35,7 @@ export const QrForm = ({
           placeholder="Professional"
         />
       </Label>
-      <Separator className='my-2 bg-white/50' />
+      <Separator className="my-2 bg-white/50" />
       <div className="flex flex-col md:flex-row gap-6 w-full">
         <Label className="flex flex-col gap-2 w-full">
           First name
@@ -70,7 +70,7 @@ export const QrForm = ({
       <Label className="flex flex-col gap-2">
         Social
         <Input
-          defaultValue={initialValues.social}
+          defaultValue={initialValues.social[0].handle ?? ''}
           type="text"
           name="social"
           placeholder="https://twitter.com/jcage"

@@ -5,31 +5,26 @@ import VCard from 'vcard-creator';
 import { QrForm } from '@/components/qr-form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useMutation } from 'convex/react';
+import { api } from '../../convex/_generated/api';
+import { getFormDataFields } from '@/lib/form';
 
-export const Generate = () => {
+export const Create = () => {
   const [vCard, setVCard] = useState('');
+  const mutate = useMutation(api.profiles.createProfile);
   const [fd, setFd] = useState<FormData | null>(null);
 
   const saveContactProfile = () => {
-    const formData = fd as FormData;
+    const formData = getFormDataFields(fd as FormData);
     // Make API request to save contact profile
-    const firstName = formData.get('first-name') as string;
-    const lastName = formData.get('last-name') as string;
-    const website = formData.get('website') as string;
-    const social = formData.get('social') as string;
-    const email = formData.get('email') as string;
-    const phone = formData.get('phone-number') as string;
-
-    console.log({
-      firstName,
-      lastName,
-      website,
-      social,
-      email,
-      phone,
+    mutate({
+      firstName: formData.firstName,
+      name: formData.profileName,
+      phoneNumber: formData.phoneNumber,
+      email: formData.email,
+      lastName: formData.lastName,
+      website: formData.website,
     });
-
-    // Should we save details as individual columns or just one string
   };
 
   return (
