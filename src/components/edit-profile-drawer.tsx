@@ -18,6 +18,7 @@ export const EditProfileDrawer = ({
     const formData = fd as FormData;
     // Make API request to save contact profile
     const firstName = formData.get('first-name') as string;
+    const profileName = formData.get('profile-name') as string;
     const lastName = formData.get('last-name') as string;
     const website = formData.get('website') as string;
     const social = formData.get('social') as string;
@@ -26,6 +27,7 @@ export const EditProfileDrawer = ({
 
     mutate({
       id: profileId as Id<'profiles'>,
+      name: profileName,
       email,
       firstName,
       lastName,

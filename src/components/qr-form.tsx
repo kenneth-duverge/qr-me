@@ -73,7 +73,9 @@ export const QrForm = ({
           defaultValue={
             initialValues.social[0].platform.includes('twitter')
               ? `https://twitter.com/${initialValues.social[0].handle}`
-              : `https://instagram.com/${initialValues.social[0].handle}`
+              : initialValues.social[0].platform.includes('instagram')
+                ? `https://instagram.com/${initialValues.social[0].handle}`
+                : ''
           }
           type="text"
           name="social"
