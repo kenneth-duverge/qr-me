@@ -6,7 +6,8 @@ export const getProfiles = query({
     const identity = await ctx.auth.getUserIdentity();
 
     if (identity === null) {
-      throw new Error('Not authenticated');
+      // throw new Error('Not authenticated');
+      return;
     }
 
     const data = await ctx.db

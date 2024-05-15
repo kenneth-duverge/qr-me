@@ -143,5 +143,6 @@ export const useGetProfiles = () => {
 
 export const useGetProfile = (id?: string | number) => {
   const data = useGetProfiles();
+  if (!id) return;
   return data?.find((p) => p._id === id);
 };

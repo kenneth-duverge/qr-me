@@ -10,18 +10,20 @@ export function Root() {
   const location = useLocation();
   return (
     <React.StrictMode>
-      <div className="h-20 w-full p-4 lg:px-8 flex items-center justify-between text-white ">
+      <div className="w-full p-4 lg:px-8 flex items-center justify-between text-white ">
         <Link to="/" className="flex items-center gap-3">
           <QrCode className="h-8 w-8" />
         </Link>
         <div className="flex items-center gap-4">
-          {location.pathname === '/' && (
-            <Link to="/create">
-              <Button className="bg-white text-zinc-900 hover:bg-zinc-200 hidden lg:flex">
-                New
-              </Button>
-            </Link>
-          )}
+          <div className='h-9'>
+            {location.pathname === '/' && (
+              <Authenticated>
+                <Link to="/profiles">
+                  <Button variant="secondary">Profiles</Button>
+                </Link>
+              </Authenticated>
+            )}
+          </div>
           <Unauthenticated>
             <SignInButton />
           </Unauthenticated>
