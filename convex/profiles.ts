@@ -56,8 +56,19 @@ export const createProfile = mutation({
       phoneNumber: args.phoneNumber,
     });
 
-    console.log(profileId);
-
     return profileId;
+  },
+});
+
+export const deleteProfile = mutation({
+  args: { id: v.id('profiles') },
+  handler: async (ctx, arg) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (identity === null) {
+      throw new Error('Not authenticated');
+    }
+
+    await ctx.db.delete(arg.id);
   },
 });
