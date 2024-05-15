@@ -1,9 +1,7 @@
-import { Drawer } from 'vaul';
-import { useUser } from '@clerk/clerk-react';
-import { useRef } from 'react';
 import { useMutation } from 'convex/react';
+import { useRef } from 'react';
+import { Drawer } from 'vaul';
 
-import { useGetProfile } from '@/lib/api';
 import { QrForm } from './qr-form';
 import { Button } from './ui/button';
 
@@ -25,33 +23,15 @@ export const QrDrawer = ({
   onSubmit,
   title = 'Edit Profile',
   profileId,
+  initialValues = defaultValues,
 }: React.PropsWithChildren<{
   title?: string;
   onSubmit: React.FormEventHandler<HTMLFormElement>;
   profileId?: string | number;
+  initialValues?: typeof defaultValues;
 }>) => {
-  const { user } = useUser();
-  const data = useGetProfile(profileId);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
   const mutate = useMutation(api.profiles.deleteProfile);
-
-  const initialValues = data
-    ? {
-        firstName: data.firstName ?? '',
-        lastName: data.lastName ?? '',
-        social: data.social ?? [{ handle: '', platform: '' }],
-        email: data.email ?? '',
-        website: data.website ?? '',
-        phoneNumber: data.phoneNumber,
-        profileName: data.name,
-      }
-    : {
-        ...defaultValues,
-        firstName: user?.firstName ?? '',
-        lastName: user?.lastName ?? '',
-        email: user?.emailAddresses?.[0]?.emailAddress ?? '',
-        phoneNumber: user?.phoneNumbers?.[0]?.phoneNumber ?? '',
-      };
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
     onSubmit(event);
