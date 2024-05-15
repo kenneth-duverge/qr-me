@@ -5,6 +5,16 @@ import { api } from '../../convex/_generated/api';
 
 import { QrDrawer } from './qr-drawer';
 
+const defaultValues = {
+  firstName: '',
+  lastName: '',
+  social: [{ handle: '', platform: '' }],
+  email: '',
+  website: '',
+  phoneNumber: '',
+  profileName: '',
+};
+
 export const CreateProfileDrawer = ({ children }: React.PropsWithChildren) => {
   const { user } = useUser();
   const mutate = useMutation(api.profiles.createProfile);
@@ -41,8 +51,17 @@ export const CreateProfileDrawer = ({ children }: React.PropsWithChildren) => {
       phoneNumber,
     });
   };
+
+  const initialValues = {
+    ...defaultValues,
+    firstName: user?.firstName ?? '',
+    lastName: user?.lastName ?? '',
+    email: user?.emailAddresses?.[0]?.emailAddress ?? '',
+    phoneNumber: user?.phoneNumbers?.[0]?.phoneNumber ?? '',
+  };
+
   return (
-    <QrDrawer onSubmit={saveContactProfile} title="Create Profile">
+    <QrDrawer initialValues={initialValues} onSubmit={saveContactProfile} title="Create Profile">
       {children}
     </QrDrawer>
   );

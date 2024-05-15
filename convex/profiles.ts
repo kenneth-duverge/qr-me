@@ -72,3 +72,32 @@ export const deleteProfile = mutation({
     await ctx.db.delete(arg.id);
   },
 });
+
+export const updateProfile = mutation({
+  args: {
+    id: v.id('profiles'),
+    name: v.optional(v.string()),
+    firstName: v.optional(v.string()),
+    lastName: v.optional(v.string()),
+    website: v.optional(v.string()),
+    email: v.optional(v.string()),
+    phoneNumber: v.optional(v.string()),
+    social: v.optional(
+      v.array(
+        v.object({
+          handle: v.string(),
+          platform: v.string(),
+        })
+      )
+    ),
+  },
+  handler: async (ctx, { id, ...args }) => {
+    const identity = await ctx.auth.getUserIdentity();
+
+    if (identity === null) {
+      throw new Error('Not authenticated');
+    }
+
+    await ctx.db.patch(id, args);
+  },
+});

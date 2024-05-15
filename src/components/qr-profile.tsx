@@ -1,54 +1,9 @@
-import QRCode from 'react-qr-code';
 import { PencilIcon } from 'lucide-react';
+import QRCode from 'react-qr-code';
 
-import { QrDrawer } from './qr-drawer';
-import { Button } from './ui/button';
 import { QrViewDrawer } from './qr-view-drawer';
-
-import { updateProfile } from '@/lib/api';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-
-const EditProfileDrawer = ({
-  children,
-  profileId,
-}: React.PropsWithChildren<{ profileId: string | number }>) => {
-  const queryClient = useQueryClient();
-  const mutation = useMutation({
-    mutationFn: updateProfile,
-    onSuccess() {
-      queryClient.invalidateQueries({ queryKey: ['profiles'] });
-    },
-  });
-
-  const saveContactProfile = (event: React.FormEvent) => {
-    event.preventDefault();
-
-    const fd = new FormData(event.target as HTMLFormElement);
-    const formData = fd as FormData;
-    // Make API request to save contact profile
-    const first_name = formData.get('first-name') as string;
-    const last_name = formData.get('last-name') as string;
-    const website = formData.get('website') as string;
-    const social = formData.get('social') as string;
-    const email = formData.get('email') as string;
-    const phone_number = formData.get('phone-number') as string;
-
-    mutation.mutate({
-      id: Number(profileId),
-      email,
-      first_name,
-      last_name,
-      website,
-      social,
-      phone_number,
-    });
-  };
-  return (
-    <QrDrawer profileId={profileId} onSubmit={saveContactProfile}>
-      {children}
-    </QrDrawer>
-  );
-};
+import { Button } from './ui/button';
+import { EditProfileDrawer } from './edit-profile-drawer';
 
 export const QrProfile = ({
   children,
