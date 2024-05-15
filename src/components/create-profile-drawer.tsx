@@ -24,12 +24,17 @@ export const CreateProfileDrawer = ({ children }: React.PropsWithChildren) => {
     const website = formData.get('website') as string;
     const email = formData.get('email') as string;
     const phoneNumber = formData.get('phone-number') as string;
-    // const social = formData.get('social') as string;
+    const social = formData.get('social') as string;
 
     mutate({
       name: profileName,
       website,
-      social: [],
+      social: [
+        {
+          handle: social.split('/').pop() as string,
+          platform: social.includes('instagram') ? 'instagram' : 'twitter',
+        },
+      ],
       firstName,
       lastName,
       email,

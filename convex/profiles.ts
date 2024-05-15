@@ -47,7 +47,7 @@ export const createProfile = mutation({
     const profileId = await ctx.db.insert('profiles', {
       modifiedTime: Date.now(),
       name: args.name,
-      social: [{ platform: '', handle: '' }],
+      social: args.social,
       website: args.website,
       userId: identity.subject,
       firstName: args.firstName,
