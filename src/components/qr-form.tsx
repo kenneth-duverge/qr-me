@@ -5,7 +5,7 @@ import { Separator } from './ui/separator';
 const defaultValues = {
   firstName: '',
   lastName: '',
-  social: [{ handle: '' }],
+  social: [{ handle: '', platform: '' }],
   email: '',
   website: '',
   phoneNumber: '',
@@ -70,7 +70,11 @@ export const QrForm = ({
       <Label className="flex flex-col gap-2">
         Social
         <Input
-          defaultValue={initialValues.social[0].handle ?? ''}
+          defaultValue={
+            initialValues.social[0].platform.includes('twitter')
+              ? `https://twitter.com/${initialValues.social[0].handle}`
+              : `https://instagram.com/${initialValues.social[0].handle}`
+          }
           type="text"
           name="social"
           placeholder="https://twitter.com/jcage"

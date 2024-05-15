@@ -13,7 +13,7 @@ import type { Id } from '../../convex/_generated/dataModel';
 const defaultValues = {
   firstName: '',
   lastName: '',
-  social: [{ handle: '' }],
+  social: [{ handle: '', platform: '' }],
   email: '',
   website: '',
   phoneNumber: '',
@@ -39,7 +39,7 @@ export const QrDrawer = ({
     ? {
         firstName: data.firstName ?? '',
         lastName: data.lastName ?? '',
-        social: data.social ?? [{ handle: '' }],
+        social: data.social ?? [{ handle: '', platform: '' }],
         email: data.email ?? '',
         website: data.website ?? '',
         phoneNumber: data.phoneNumber,
