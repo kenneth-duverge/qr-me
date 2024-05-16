@@ -1,5 +1,6 @@
 import { useUser } from '@clerk/clerk-react';
 import { useMutation } from 'convex/react';
+import { useLogSnag } from '@logsnag/react';
 
 import { api } from '../../convex/_generated/api';
 
@@ -18,6 +19,7 @@ const defaultValues = {
 export const CreateProfileDrawer = ({ children }: React.PropsWithChildren) => {
   const { user } = useUser();
   const mutate = useMutation(api.profiles.createProfile);
+  const { track } = useLogSnag();
 
   const saveContactProfile = (event: React.FormEvent) => {
     event.preventDefault();
@@ -49,6 +51,14 @@ export const CreateProfileDrawer = ({ children }: React.PropsWithChildren) => {
       lastName,
       email,
       phoneNumber,
+    });
+
+    track({
+      channel: 'qrdotme',
+      user_id: user.id,
+      event: 'New Profile Created',
+      icon: '✏️',
+      notify: true,
     });
   };
 

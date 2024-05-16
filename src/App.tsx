@@ -1,3 +1,4 @@
+import { LogSnagProvider } from '@logsnag/react';
 import { Outlet, RouterProvider, createBrowserRouter, useNavigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
@@ -41,7 +42,6 @@ const router = createBrowserRouter([
       {
         path: 'create',
         element: <ProtectedRoute />,
-        // Rename Generate to create
         children: [{ path: '/create', element: <Create /> }],
       },
     ],
@@ -52,8 +52,10 @@ const queryClient = new QueryClient();
 
 export default function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+    <LogSnagProvider project="duverge-tech" token="8db9eda1de780c6d0bb915a34159d33d">
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </LogSnagProvider>
   );
 }
