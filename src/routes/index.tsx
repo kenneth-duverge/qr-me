@@ -1,6 +1,3 @@
-import { CreateProfileDrawer } from '@/components/create-profile-drawer';
-import { Button } from '@/components/ui/button';
-
 export const Index = () => {
   return (
     <div className="text-white font-mono container px-4 md:px-8 h-full w-full flex flex-col gap-10 justify-center items-center">
@@ -8,9 +5,11 @@ export const Index = () => {
         Instantly Share Your Info With Custom QR Codes
       </h1>
 
-      <CreateProfileDrawer>
-        <Button variant="secondary">Create QR code</Button>
-      </CreateProfileDrawer>
+      {/* <Authenticated>
+        <CreateProfileDrawer>
+          <Button variant="secondary">Create QR code</Button>
+        </CreateProfileDrawer>
+      </Authenticated> */}
     </div>
   );
 };
